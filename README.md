@@ -19,7 +19,7 @@ The following functionalities of the Mental Care API are tested:
 ## Generating Newman Report
 All API tests are executed via **Newman**, and the results are saved in a detailed report.
 
-[See the full Newman report](https://github.com/AyeshaNasrinRipa/MentalCare-API-Testing-Postman-Newman/index.html)
+[See the full Newman report](https://ayeshanasrinripa.github.io/MentalCare-API-Testing-Postman-Newman/)
 
 ## Prerequisites
 - Postman
