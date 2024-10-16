@@ -1,0 +1,676 @@
+{
+	"info": {
+		"_postman_id": "5ace7976-5279-4597-a3dc-91553d8c2893",
+		"name": "Mental_Care_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38130425"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "psychologist-registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"validate status code 200\",()=>{\r",
+									"const actualValue=pm.response.code;\r",
+									"pm.expect(200).to.eql(actualValue);\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "nasrinnur25@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Nasrin Nur",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "nasrin25",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "psychologist",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "0186416293",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Dhaka",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "female",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "45",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Asus/Downloads/psychologist.png"
+								},
+								{
+									"key": "certificate",
+									"type": "file",
+									"src": "/C:/Users/Asus/Downloads/kamruzzaman_cv.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:7254/api/auth/psycologist-register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"auth",
+								"psycologist-register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-login-valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"validate status code 200\",()=>{\r",
+									"const actualValue=pm.response.code;\r",
+									"pm.expect(200).to.eql(actualValue);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"psychologist@gmail.com\",\r\n  \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7254/api/auth/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-login-invalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate isSuccess is false\", () => {\r",
+									"    const expectedValue = false;\r",
+									"    const body = pm.response.json();\r",
+									"    pm.expect(body.isSuccess).to.eql(expectedValue);\r",
+									"});\r",
+									"pm.test(\"Validate error message for incorrect username or password\", () => {\r",
+									"    const expectedMessage = \"Username or password is incorrect\";\r",
+									"    const body = pm.response.json();\r",
+									"    pm.expect(body.errorMessages).to.include(expectedMessage);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"psychologist@gmail.com\",\r\n  \"password\": \"79693\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7254/api/auth/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Blogs",
+			"item": [
+				{
+					"name": "get-blogs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate result is not empty\", () => {\r",
+									"    const body = pm.response.json();\r",
+									"    pm.expect(body.result).to.be.an('array').that.is.not.empty;\r",
+									"});\r",
+									"pm.test(\"Validate status code 200\", () => {\r",
+									"    const actualValue = pm.response.code;\r",
+									"    pm.expect(actualValue).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7254/api/blogs/get-all-blogs",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"blogs",
+								"get-all-blogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-blog",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate status code 200 and successful blog creation\", () => {\r",
+									"    const actualValue = pm.response.code;\r",
+									"    pm.expect(actualValue).to.eql(200); // Expecting status code 201 for successful creation\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "keep your mental health happier",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "4c8daf88-d1fa-42ab-a809-486e8c7e1b24",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Counseling psychology is a psychological specialty that began with a focus on vocational counseling, but later moved its emphasis to adjustment counseling, and then expanded to cover all normal psychology and psychotherapy",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:7254/api/blogs/create-blog",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"blogs",
+								"create-blog"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-individual-psychologist-blog",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate result array is not empty\", () => {\r",
+									"    const body = pm.response.json();\r",
+									"    pm.expect(body.result).to.be.an('array').that.is.not.empty;\r",
+									"});\r",
+									"pm.test(\"Validate status code 200\", () => {\r",
+									"    const actualValue = pm.response.code;\r",
+									"    pm.expect(actualValue).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7254/api/blogs/get-individuals-blog/4c8daf88-d1fa-42ab-a809-486e8c7e1b24",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"blogs",
+								"get-individuals-blog",
+								"4c8daf88-d1fa-42ab-a809-486e8c7e1b24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-blogs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate status code in body is 204\", () => {\r",
+									"    const responseBody = pm.response.json(); \r",
+									"    pm.expect(responseBody.statusCode).to.eql(204); \r",
+									"});\r",
+									"pm.test(\"Validate status code is 204\", () => {\r",
+									"    const actualStatusCode = pm.response.code; // Get the actual response status code\r",
+									"    pm.expect(actualStatusCode).to.eql(204); // Expect it to be 204\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7254/api/blogs/delete-blog/1002",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"blogs",
+								"delete-blog",
+								"1002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "update-profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate result values\", () => {\r",
+									"    const body = pm.response.json();\r",
+									"    pm.expect(body.result.id).to.eql(\"98407e7b-898c-4897-b8be-384da2693bb6\");\r",
+									"    pm.expect(body.result.name).to.eql(\"Tahsina Sharmin\");\r",
+									"    pm.expect(body.result.phoneNumber).to.eql(\"018246913741\");\r",
+									"    pm.expect(body.result.gender).to.eql(\"Female\");\r",
+									"    pm.expect(body.result.age).to.eql(31);\r",
+									"    pm.expect(body.result.profilePicture).to.eql(\"https://localhost:7254/images/d76e8eb2-b149-4988-abf0-40902794ebeb.png\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "98407e7b-898c-4897-b8be-384da2693bb6",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Tahsina Sharmin",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "018246913741",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "female",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "31",
+									"type": "text"
+								},
+								{
+									"key": "profilePicture",
+									"type": "file",
+									"src": "/C:/Users/Asus/Downloads/psychologist.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:7254/api/users/update-general-user/98407e7b-898c-4897-b8be-384da2693bb6",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"users",
+								"update-general-user",
+								"98407e7b-898c-4897-b8be-384da2693bb6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-psychologist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate all required psychologist details are present\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    jsonData.result.forEach(function (item) {\r",
+									"        pm.expect(item).to.have.property(\"userId\");\r",
+									"        pm.expect(item).to.have.property(\"name\");\r",
+									"        pm.expect(item).to.have.property(\"email\");\r",
+									"        pm.expect(item).to.have.property(\"isApproved\");\r",
+									"        pm.expect(item).to.have.property(\"gender\");\r",
+									"        pm.expect(item).to.have.property(\"profilePicture\");\r",
+									"        pm.expect(item).to.have.property(\"certificate\");\r",
+									"        pm.expect(item).to.have.property(\"location\");\r",
+									"        pm.expect(item).to.have.property(\"phoneNumber\");\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7254/api/users/get-psychologists",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"users",
+								"get-psychologists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate status code in body is 200\", () => {\r",
+									"    const responseBody = pm.response.json(); \r",
+									"    pm.expect(responseBody.statusCode).to.eql(200); \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7254/api/users/get-general-users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"users",
+								"get-general-users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "delete-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate status code in body is 204\", () => {\r",
+									"    const responseBody = pm.response.json(); \r",
+									"    pm.expect(responseBody.statusCode).to.eql(204); \r",
+									"});\r",
+									"pm.test(\"Validate status code is 204\", () => {\r",
+									"    const actualStatusCode = pm.response.code; // Get the actual response status code\r",
+									"    pm.expect(actualStatusCode).to.eql(204); // Expect it to be 204\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7254/api/users/delete-general-user/44de9483-bded-4b93-9465-a890a548e27f",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"users",
+								"delete-general-user",
+								"44de9483-bded-4b93-9465-a890a548e27f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve-psychologist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate status code 200\", () => {\r",
+									"    const actualValue = pm.response.code;\r",
+									"    pm.expect(actualValue).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7254/api/users/approve-psychologist/0cf5d053-c6e9-45f1-8d73-2522ff862b1c",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"users",
+								"approve-psychologist",
+								"0cf5d053-c6e9-45f1-8d73-2522ff862b1c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-psychologist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate status code in body is 204\", () => {\r",
+									"    const responseBody = pm.response.json(); \r",
+									"    pm.expect(responseBody.statusCode).to.eql(204); \r",
+									"});\r",
+									"pm.test(\"Validate status code is 204\", () => {\r",
+									"    const actualStatusCode = pm.response.code; // Get the actual response status code\r",
+									"    pm.expect(actualStatusCode).to.eql(204); // Expect it to be 204\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7254/api/users/delete-psychologist/0cf5d053-c6e9-45f1-8d73-2522ff862b1c",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7254",
+							"path": [
+								"api",
+								"users",
+								"delete-psychologist",
+								"0cf5d053-c6e9-45f1-8d73-2522ff862b1c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
